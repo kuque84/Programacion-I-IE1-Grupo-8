@@ -74,13 +74,33 @@ function ingresar (){
 function listar(){
        let resultado = document.getElementById("lista");
     if (baseClientes.clientes ==""){
-        resultado.innerText = "No ha ingresado ningún cliente aún";
+        resultado.innerHTML += "No ha ingresado ningún cliente aún";
         document.getElementById("correcto").innerText = "";
     } else {
-        document.getElementById("lista").innerText = "";
-        baseClientes.clientes.forEach(clientes => resultado.innerText += clientes.toString() + "\n");
+        document.getElementById("lista").innerHTML = `
+        <thead class="bg-dark text-light">
+            <tr>
+                <th>Apellido, Nombre</th>
+                <th>Direccion</th>
+                <th>Código Postal</th>
+                <th>Teléfono</th>
+                <th>DNI</th>
+                <th>CUIT</th>
+            </tr>
+        </thead>
+        `;
+        /*
+        for (var i=0;i < resultado.length;i++){
+            var row = <tr>
+                <td>$</td>
+            </tr>
+        }
+        */
+        
+        baseClientes.clientes.forEach(clientes => resultado.innerHTML += `<tr><td>${cliente.apellido}</td></tr>`);
         baseClientes.clientes.forEach(clientes => console.log(clientes.toString()))
         document.getElementById("correcto").innerText = "";
+        
     }
 }
 function basenovacia(){

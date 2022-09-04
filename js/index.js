@@ -127,7 +127,7 @@ function basenovacia(){
     let nuevo2 = new Cliente(nombre2, apellido2, domicilio2, codigopostal2, telefono2, dni2, cuit2);
     baseClientes.agregar(nuevo2);
 }
-editar(){
+function editar(){
     function checkDNI(dni) {
         return dni = 11111112;
     }

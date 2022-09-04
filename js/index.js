@@ -72,24 +72,25 @@ function ingresar (){
 }
 
 function listar(){
-       let resultado = document.getElementById("lista");
+       let resultado = document.getElementById("clientes-tbody");
     if (baseClientes.clientes ==""){
-        resultado.innerHTML += "No ha ingresado ningún cliente aún";
+        resultado.innerHTML = "No ha ingresado ningún cliente aún";
         document.getElementById("correcto").innerText = "";
     } else {
-        document.getElementById("lista").innerHTML = `
-        <thead class="bg-dark text-light">
-            <tr>
-                <th>Apellido, Nombre</th>
-                <th>Direccion</th>
-                <th>Código Postal</th>
-                <th>Teléfono</th>
-                <th>DNI</th>
-                <th>CUIT</th>
-            </tr>
-        </thead>
-        `;
-        baseClientes.clientes.forEach(clientes => resultado.innerHTML += `<tr><td>${clientes.apellido}, ${clientes.nombre}</td><td>${clientes.domicilio}</td><td>${clientes.codigopostal}</td><td>${clientes.telefono}</td><td>${clientes.dni}</td><td>${clientes.cuit}</td></td></tr>`);
+        resultado.innerHTML = "";
+        baseClientes.clientes.forEach(clientes => resultado.innerHTML += `
+        <tr>
+            <td>${clientes.apellido}, ${clientes.nombre}</td>
+            <td>${clientes.domicilio}</td>
+            <td>${clientes.codigopostal}</td>
+            <td>${clientes.telefono}</td>
+            <td>${clientes.dni}</td>
+            <td>${clientes.cuit}</td>
+            <td>
+                <button type="button" onclick="editar()" class="btn btn-outline-light btn-sm"><i class="bi bi-pencil-square text-dark"></i></a>
+                <button type="button" class="btn btn-outline-light btn-sm" onclick="eliminar()"><i class="bi bi-trash3-fill text-danger"></i></button>
+            </td>    
+        </tr>`);
         baseClientes.clientes.forEach(clientes => console.log(`${clientes.apellido}, ${clientes.nombre}, ${clientes.domicilio}, ${clientes.codigopostal}, ${clientes.telefono}, ${clientes.dni},${clientes.cuit}`));
         document.getElementById("correcto").innerText = "";
         
@@ -125,6 +126,15 @@ function basenovacia(){
     let cuit2 = 20111111124;
     let nuevo2 = new Cliente(nombre2, apellido2, domicilio2, codigopostal2, telefono2, dni2, cuit2);
     baseClientes.agregar(nuevo2);
+}
+editar(){
+    function checkDNI(dni) {
+        return dni = 11111112;
+    }
+    const found = baseClientes.clientes.find(res => {
+        return res.dni === checkDNI();
+    })
+    console.table(found)
 }
 
 console.log(baseClientes);

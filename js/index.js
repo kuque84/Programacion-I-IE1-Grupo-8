@@ -87,11 +87,11 @@ function listar(){
             <td>${clientes.dni}</td>
             <td>${clientes.cuit}</td>
             <td>
-                <button type="button" onclick="editar()" class="btn btn-outline-light btn-sm"><i class="bi bi-pencil-square text-dark"></i></a>
-                <button type="button" class="btn btn-outline-light btn-sm" onclick="eliminar()"><i class="bi bi-trash3-fill text-danger"></i></button>
+                <button id="${clientes.dni}" type="button" onclick="editar(this.id)" class="btn btn-outline-light btn-sm"><i class="bi bi-pencil-square text-dark"></i></a>
+                <button id="${clientes.dni}" type="button" class="btn btn-outline-light btn-sm" onclick="eliminar(this.id)"><i class="bi bi-trash3-fill text-danger"></i></button>
             </td>    
         </tr>`);
-        baseClientes.clientes.forEach(clientes => console.log(`${clientes.apellido}, ${clientes.nombre}, ${clientes.domicilio}, ${clientes.codigopostal}, ${clientes.telefono}, ${clientes.dni},${clientes.cuit}`));
+        baseClientes.clientes.forEach(clientes => console.table(`${clientes.apellido}, ${clientes.nombre}, ${clientes.domicilio}, ${clientes.codigopostal}, ${clientes.telefono}, ${clientes.dni},${clientes.cuit}`));
         document.getElementById("correcto").innerText = "";
         
     }
@@ -129,7 +129,7 @@ function basenovacia(){
 }
 function editar(){
     function checkDNI(dni) {
-        return dni = 11111112;
+        return dni = 11111112; /* ESTO ES LO QUE HAY QUE BUSCAR EN LA BASEDECLIENTES*/
     }
     const found = baseClientes.clientes.find(res => {
         return res.dni === checkDNI();
@@ -137,4 +137,16 @@ function editar(){
     console.table(found)
 }
 
+function eliminar(id){
+    function checkDNI(dni) {
+        return dni = parseInt(id); /* ESTO ES LO QUE HAY QUE BUSCAR EN LA BASEDECLIENTES*/
+    }
+    const found = baseClientes.clientes.findIndex(res => {
+        return res.dni === checkDNI();
+    })
+    console.log(id);
+    console.table(baseClientes.clientes[found]);
+    baseClientes.clientes.splice(found, 1);
+    listar();
+}
 console.log(baseClientes);

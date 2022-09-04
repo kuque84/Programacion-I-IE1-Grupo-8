@@ -210,4 +210,22 @@ function eliminar(id){
     baseClientes.clientes.splice(found, 1);
     listar();
 }
+function segundolistado(CarteraClientes){
+    location.href="clientes.html";
+    let baseClientes = CarteraClientes;
+    //document.getElementById("mensaje").innerText= "";
+    let resultado = document.getElementById("clientes-tbody");
+    if (baseClientes.clientes ==""){
+        resultado.innerHTML = "No ha ingresado ningún cliente aún";
+    } else {
+        document.getElementById("clientes-tbody").innerHTML = ""
+        baseClientes.clientes.forEach(clientes => resultado.innerHTML += `
+        <tr>
+            <td>${clientes.apellido}, ${clientes.nombre}</td>
+            <td>${clientes.cuit}</td>
+        </tr>`);
+        //baseClientes.clientes.forEach(clientes => console.table(clientes));
+        document.getElementById("correcto").innerText = "";
+    }
+}
 console.table(baseClientes);

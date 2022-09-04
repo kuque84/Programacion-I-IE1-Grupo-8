@@ -12,7 +12,6 @@
     <title>Consulta de Clientes</title>
 </head>
 <body>
-    <script type="javascript">basenovacia()</script>
     <div class="groupbox">
         <h1>Ingreso de nuevo Cliente:</h1>
         <form class="container" id="formulario">
@@ -81,6 +80,7 @@
                 <input id="guardar" onclick= "ingresar()" type="button" class="btn btn-success" value="Agregar"></input>
                 <button onclick= "listar()" type="button" class="btn btn-primary">Listar Clientes</button>
                 <button onclick= "basenovacia()" type="button" class="btn btn-warning">Agregar Clientes Automaticamente</button>
+                <button onclick= "segundolistado()" type="button" class="btn btn-secondary">Segundo listado</button>
             </div>
             <p class="correcto" id="correcto"></p>
             <p class="incorrecto" id="mensaje"></p>
@@ -88,7 +88,7 @@
         <div class="listado">
             <h1>Lista de Clientes</h1>
             <table class="table table-striped" id="lista">
-                <thead class="bg-dark text-center">
+                <thead class="bg-dark text-center text-light">
                     <tr>
                         <th>Apellido, Nombre</th>
                         <th>Dirección</th>

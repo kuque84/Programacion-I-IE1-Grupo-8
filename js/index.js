@@ -8,9 +8,6 @@ class Cliente {
         this.dni = dni;
         this.cuit = cuit;
     }
-    toString(){
-        return `Apellido y Nombre: ${this.apellido}, ${this.nombre}, Domicilio: ${this.domicilio}, Código Postal: ${this.codigopostal}, Teléfono: ${this.telefono}, DNI: ${this.dni}, CUIT: ${this.cuit}`;
-    }
 }
 
 class CarteraClientes {
@@ -35,7 +32,7 @@ function ingresar (){
     document.getElementById("correcto").innerText = '';
 
     let validar = (() =>{
-        let mensaje="";
+        let mensaje = "";
         if (nombre == "") {
             mensaje += "Ingrese un nombre" + '\n';
         }
@@ -67,17 +64,17 @@ function ingresar (){
         baseClientes.agregar(nuevo);
         document.getElementById("correcto").innerText = `Cliente agregado correctamente`;
         document.getElementById("formulario").reset();
+        console.table(baseClientes.clientes);
     }
     document.getElementById("lista").innerText = "";
 }
 
 function listar(){
-       let resultado = document.getElementById("clientes-tbody");
+       let resultado = document.getElementById("lista");
     if (baseClientes.clientes ==""){
         resultado.innerHTML = "No ha ingresado ningún cliente aún";
-        document.getElementById("correcto").innerText = "";
     } else {
-        resultado.innerHTML = "";
+        document.getElementById("lista").innerHTML = ""
         baseClientes.clientes.forEach(clientes => resultado.innerHTML += `
         <tr>
             <td>${clientes.apellido}, ${clientes.nombre}</td>
@@ -91,7 +88,7 @@ function listar(){
                 <button id="${clientes.dni}" type="button" class="btn btn-outline-light btn-sm" onclick="eliminar(this.id)"><i class="bi bi-trash3-fill text-danger"></i></button>
             </td>    
         </tr>`);
-        baseClientes.clientes.forEach(clientes => console.table(`${clientes.apellido}, ${clientes.nombre}, ${clientes.domicilio}, ${clientes.codigopostal}, ${clientes.telefono}, ${clientes.dni},${clientes.cuit}`));
+        baseClientes.clientes.forEach(clientes => console.table(clientes));
         document.getElementById("correcto").innerText = "";
         
     }
@@ -149,4 +146,4 @@ function eliminar(id){
     baseClientes.clientes.splice(found, 1);
     listar();
 }
-console.log(baseClientes);
+console.table(baseClientes);

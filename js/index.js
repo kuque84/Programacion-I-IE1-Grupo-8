@@ -30,51 +30,107 @@ function ingresar (){
     let dni = Number(document.getElementById("dni").value);
     let cuit = Number(document.getElementById("cuit").value);
     document.getElementById("correcto").innerText = '';
+    if (document.getElementById('guardar').value == "Agregar"){
+        let validar = (() =>{
+            let mensaje = "";
+            if (nombre == "") {
+                mensaje += "Ingrese un nombre" + '\n';
+            }
+            if (apellido == "") {
+                mensaje += "Ingrese un apellido" + '\n';
+            }
+            if (domicilio == "") {
+                mensaje += "Ingrese un domicilio" + '\n';
+            }
+            if (codigopostal == "") {
+                mensaje += "Ingrese un código postal" + '\n';
+            }
+            if (telefono == "") {
+                mensaje += "Ingrese un teléfono" + '\n';
+            }
+            if (dni == "") {
+                mensaje += "Ingrese un DNI" + '\n';
+            }
+            if (cuit == "") {
+                mensaje += "Ingrese un CUIT" + '\n';
+            }
+            function checkDNI() {
+                return dni; /* ESTO ES LO QUE HAY QUE BUSCAR EN LA BASEDECLIENTES*/
+            }
+            const found = baseClientes.clientes.findIndex(res => {
+                return res.dni === checkDNI();
+            })
+            console.table(`===========>>>>>> ${found}`);
+            if (found > -1){
+                mensaje = "No puede ingresar un Cliente existente, puede modificarlo.";
+            }
+            let parrafo_errores = document.getElementById("mensaje");
+            parrafo_errores.innerText = mensaje;
+            return mensaje == "" ? true : false;
+        })
+        if (validar()) {
+            let nuevo = new Cliente(nombre, apellido, domicilio, codigopostal, telefono, dni, cuit);
+            baseClientes.agregar(nuevo);
+            document.getElementById("correcto").innerText = `Cliente agregado correctamente`;
+            document.getElementById("formulario").reset();
+            console.table(baseClientes.clientes);
+        }
+        document.getElementById("clientes-tbody").innerText = "";
+    }else{
+        let validarmodificacion = (() =>{
+            let mensaje = "";
+            if (nombre == "") {
+                mensaje += "Ingrese un nombre" + '\n';
+            }
+            if (apellido == "") {
+                mensaje += "Ingrese un apellido" + '\n';
+            }
+            if (domicilio == "") {
+                mensaje += "Ingrese un domicilio" + '\n';
+            }
+            if (codigopostal == "") {
+                mensaje += "Ingrese un código postal" + '\n';
+            }
+            if (telefono == "") {
+                mensaje += "Ingrese un teléfono" + '\n';
+            }
+            if (dni == "") {
+                mensaje += "Ingrese un DNI" + '\n';
+            }
+            if (cuit == "") {
+                mensaje += "Ingrese un CUIT" + '\n';
+            }
+            let parrafo_errores = document.getElementById("mensaje");
+            parrafo_errores.innerText = mensaje;
+            return mensaje == "" ? true : false;
+        })
 
-    let validar = (() =>{
-        let mensaje = "";
-        if (nombre == "") {
-            mensaje += "Ingrese un nombre" + '\n';
+        if (validarmodificacion()) {
+            function checkDNI() {
+                return dni; /* ESTO ES LO QUE HAY QUE BUSCAR EN LA BASEDECLIENTES*/
+            }
+            const found = baseClientes.clientes.findIndex(res => {
+                return res.dni === checkDNI();
+            })
+            console.table(`===========>>>>>> ${found}`);
+            let nuevo = new Cliente(nombre, apellido, domicilio, codigopostal, telefono, dni, cuit);
+            baseClientes.clientes.splice(found, 1, nuevo);
+            document.getElementById("correcto").innerText = `Cliente modificado correctamente`;
+            document.getElementById("formulario").reset();
+            console.table(baseClientes.clientes);
         }
-        if (apellido == "") {
-            mensaje += "Ingrese un apellido" + '\n';
-        }
-        if (domicilio == "") {
-            mensaje += "Ingrese un domicilio" + '\n';
-        }
-        if (codigopostal == "") {
-            mensaje += "Ingrese un código postal" + '\n';
-        }
-        if (telefono == "") {
-            mensaje += "Ingrese un teléfono" + '\n';
-        }
-        if (dni == "") {
-            mensaje += "Ingrese un DNI" + '\n';
-        }
-        if (cuit == "") {
-            mensaje += "Ingrese un CUIT" + '\n';
-        }
-        let parrafo_errores = document.getElementById("mensaje");
-        parrafo_errores.innerText = mensaje;
-        return mensaje == "" ? true : false;
-    })
-
-    if (validar()) {
-        let nuevo = new Cliente(nombre, apellido, domicilio, codigopostal, telefono, dni, cuit);
-        baseClientes.agregar(nuevo);
-        document.getElementById("correcto").innerText = `Cliente agregado correctamente`;
-        document.getElementById("formulario").reset();
-        console.table(baseClientes.clientes);
+        document.getElementById("clientes-tbody").innerText = "";
+        document.getElementById('guardar').value = "Agregar";
     }
-    document.getElementById("lista").innerText = "";
 }
 
 function listar(){
-       let resultado = document.getElementById("lista");
+        document.getElementById("mensaje").innerText= "";
+        let resultado = document.getElementById("clientes-tbody");
     if (baseClientes.clientes ==""){
         resultado.innerHTML = "No ha ingresado ningún cliente aún";
     } else {
-        document.getElementById("lista").innerHTML = ""
+        document.getElementById("clientes-tbody").innerHTML = ""
         baseClientes.clientes.forEach(clientes => resultado.innerHTML += `
         <tr>
             <td>${clientes.apellido}, ${clientes.nombre}</td>
@@ -84,13 +140,12 @@ function listar(){
             <td>${clientes.dni}</td>
             <td>${clientes.cuit}</td>
             <td>
-                <button id="${clientes.dni}" type="button" onclick="editar(this.id)" class="btn btn-outline-light btn-sm"><i class="bi bi-pencil-square text-dark"></i></a>
+                <button id="${clientes.dni}" type="button" onclick="cargar(this.id)" class="btn btn-outline-light btn-sm"><i class="bi bi-pencil-square text-dark"></i></a>
                 <button id="${clientes.dni}" type="button" class="btn btn-outline-light btn-sm" onclick="eliminar(this.id)"><i class="bi bi-trash3-fill text-danger"></i></button>
             </td>    
         </tr>`);
-        baseClientes.clientes.forEach(clientes => console.table(clientes));
+        //baseClientes.clientes.forEach(clientes => console.table(clientes));
         document.getElementById("correcto").innerText = "";
-        
     }
 }
 function basenovacia(){
@@ -124,14 +179,23 @@ function basenovacia(){
     let nuevo2 = new Cliente(nombre2, apellido2, domicilio2, codigopostal2, telefono2, dni2, cuit2);
     baseClientes.agregar(nuevo2);
 }
-function editar(){
+function cargar(id){
     function checkDNI(dni) {
-        return dni = 11111112; /* ESTO ES LO QUE HAY QUE BUSCAR EN LA BASEDECLIENTES*/
+        return dni = parseInt(id); /* ESTO ES LO QUE HAY QUE BUSCAR EN LA BASEDECLIENTES*/
     }
-    const found = baseClientes.clientes.find(res => {
+    const found = baseClientes.clientes.findIndex(res => {
         return res.dni === checkDNI();
     })
-    console.table(found)
+    console.log(id);
+    console.table(baseClientes.clientes[found]);
+    document.getElementById('nombre').value = baseClientes.clientes[found].nombre;
+    document.getElementById('apellido').value = baseClientes.clientes[found].apellido;
+    document.getElementById('domicilio').value = baseClientes.clientes[found].domicilio;
+    document.getElementById('codigopostal').value = baseClientes.clientes[found].codigopostal;
+    document.getElementById('telefono').value = baseClientes.clientes[found].telefono;
+    document.getElementById('dni').value = baseClientes.clientes[found].dni;
+    document.getElementById('cuit').value = baseClientes.clientes[found].cuit;
+    document.getElementById('guardar').value = 'Modificar';
 }
 
 function eliminar(id){

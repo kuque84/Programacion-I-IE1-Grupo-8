@@ -110,3 +110,10 @@ label {
     padding-top: 40px;
 }
 /*      /DIVBTN      */
+
+.incorrecto{
+    color: red;
+}
+.correcto{
+    color: blue;
+}

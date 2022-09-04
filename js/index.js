@@ -89,16 +89,8 @@ function listar(){
             </tr>
         </thead>
         `;
-        /*
-        for (var i=0;i < resultado.length;i++){
-            var row = <tr>
-                <td>$</td>
-            </tr>
-        }
-        */
-        
-        baseClientes.clientes.forEach(clientes => resultado.innerHTML += `<tr><td>${cliente.apellido}</td></tr>`);
-        baseClientes.clientes.forEach(clientes => console.log(clientes.toString()))
+        baseClientes.clientes.forEach(clientes => resultado.innerHTML += `<tr><td>${clientes.apellido}, ${clientes.nombre}</td><td>${clientes.domicilio}</td><td>${clientes.codigopostal}</td><td>${clientes.telefono}</td><td>${clientes.dni}</td><td>${clientes.cuit}</td></td></tr>`);
+        baseClientes.clientes.forEach(clientes => console.log(`${clientes.apellido}, ${clientes.nombre}, ${clientes.domicilio}, ${clientes.codigopostal}, ${clientes.telefono}, ${clientes.dni},${clientes.cuit}`));
         document.getElementById("correcto").innerText = "";
         
     }

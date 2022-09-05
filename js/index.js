@@ -141,7 +141,7 @@ function listar(){
             <td>${clientes.cuit}</td>
             <td>
                 <button id="${clientes.dni}" type="button" onclick="cargar(this.id)" class="btn btn-outline-light btn-sm"><i class="bi bi-pencil-square text-dark"></i></a>
-                <button id="${clientes.dni}" type="button" class="btn btn-outline-light btn-sm" onclick="eliminar(this.id)"><i class="bi bi-trash3-fill text-danger"></i></button>
+                <button id="${clientes.dni}" type="button" onclick="eliminar(this.id)" class="btn btn-outline-light btn-sm"><i class="bi bi-trash3-fill text-danger"></i></button>
             </td>    
         </tr>`);
         //baseClientes.clientes.forEach(clientes => console.table(clientes));

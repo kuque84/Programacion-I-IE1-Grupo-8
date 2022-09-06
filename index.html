@@ -12,7 +12,7 @@
     <title>Consulta de Clientes</title>
 </head>
 <body>
-    <div class="groupbox">
+    <div class="groupbox" id="tablacompuesta">
         <h1>Ingreso de nuevo Cliente:</h1>
         <form class="container" id="formulario">
             <div class="row">
@@ -103,6 +103,25 @@
 
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="groupbox" id="tablasimple" hidden>
+        <div class="listado">
+            <h1>Lista de Clientes</h1>
+            <table class="table table-striped" id="lista">
+                <thead class="bg-dark text-center text-light">
+                    <tr>
+                        <th>Apellido, Nombre</th>
+                        <th>CUIT</th>
+                    </tr>
+                </thead>
+                <tbody id="clientessimple-tbody">
+
+                </tbody>
+            </table>
+        </div>
+        <div class="divbtn">
+        <button onclick= "segundolistado()" type="button" class="btn btn-dark">Volver</button></a>
         </div>
     </div>
     <script src="js/index.js"></script>

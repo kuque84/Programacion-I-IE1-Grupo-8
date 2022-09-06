@@ -127,6 +127,7 @@ function ingresar (){
 function listar(){
         document.getElementById("mensaje").innerText= "";
         let resultado = document.getElementById("clientes-tbody");
+        let resultado2 = document.getElementById("clientessimple-tbody");
     if (baseClientes.clientes ==""){
         resultado.innerHTML = "No ha ingresado ningún cliente aún";
     } else {
@@ -144,6 +145,14 @@ function listar(){
                 <button id="${clientes.dni}" type="button" onclick="eliminar(this.id)" class="btn btn-outline-light btn-sm"><i class="bi bi-trash3-fill text-danger"></i></button>
             </td>    
         </tr>`);
+        /**/
+        document.getElementById("clientessimple-tbody").innerHTML = ""
+        baseClientes.clientes.forEach(clientes => resultado2.innerHTML += `
+        <tr>
+            <td>${clientes.apellido}, ${clientes.nombre}</td>
+            <td>${clientes.cuit}</td>
+        </tr>`);
+        /**/
         //baseClientes.clientes.forEach(clientes => console.table(clientes));
         document.getElementById("correcto").innerText = "";
     }
@@ -210,22 +219,16 @@ function eliminar(id){
     baseClientes.clientes.splice(found, 1);
     listar();
 }
-function segundolistado(CarteraClientes){
-    location.href="clientes.html";
-    let baseClientes = CarteraClientes;
-    //document.getElementById("mensaje").innerText= "";
-    let resultado = document.getElementById("clientes-tbody");
-    if (baseClientes.clientes ==""){
-        resultado.innerHTML = "No ha ingresado ningún cliente aún";
-    } else {
-        document.getElementById("clientes-tbody").innerHTML = ""
-        baseClientes.clientes.forEach(clientes => resultado.innerHTML += `
-        <tr>
-            <td>${clientes.apellido}, ${clientes.nombre}</td>
-            <td>${clientes.cuit}</td>
-        </tr>`);
-        //baseClientes.clientes.forEach(clientes => console.table(clientes));
-        document.getElementById("correcto").innerText = "";
+function segundolistado(){
+    let tablasimple = document.getElementById('tablasimple').hidden;
+    if (tablasimple == true) {
+        console.log('tabla simple escondida')
+        document.getElementById("tablasimple").hidden = false;
+        document.getElementById("tablacompuesta").hidden = true;
+    }else{
+        console.log('tabla compuesta escondida')
+        document.getElementById("tablasimple").hidden = true;
+        document.getElementById("tablacompuesta").hidden = false;
     }
 }
 console.table(baseClientes);

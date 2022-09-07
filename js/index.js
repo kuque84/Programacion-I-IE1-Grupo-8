@@ -220,6 +220,7 @@ function eliminar(id){
     listar();
 }
 function segundolistado(){
+    listar()
     let tablasimple = document.getElementById('tablasimple').hidden;
     if (tablasimple == true) {
         console.log('tabla simple escondida')
